@@ -17,4 +17,9 @@ class Item extends Model
         return $this->belongsTo(Category::class,'category');
     }
 
+    public function scopeOfCategory($query, $categories)
+    {
+        return $query->whereIn('category', $categories);
+    }
+
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Item;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class categoryController extends Controller
@@ -62,7 +64,7 @@ class categoryController extends Controller
      */
     public function show($id)
     {
-        return Category::find($id);
+
     }
 
     /**
@@ -85,7 +87,7 @@ class categoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return Category::find($id)->update($request->all());
+
     }
 
     /**
@@ -96,6 +98,7 @@ class categoryController extends Controller
      */
     public function destroy($id)
     {
-        return Category::destroy($id);
+        DB::table('item')->where('category', $id)->delete();
+        return redirect('/');
     }
 }

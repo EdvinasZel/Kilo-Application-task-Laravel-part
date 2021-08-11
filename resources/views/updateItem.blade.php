@@ -8,8 +8,9 @@
 
     <div class="container">
 
-        <form method="PUT|PATCH">
+        <form method="POST" action="{{ route('item.update', $item->id) }}">
 
+            @method('PUT')
             <label for="category"><h5>Choose Category:</h5></label>
             <select name="category" id="category" class="form-control">
                 @foreach($categorie as $name)

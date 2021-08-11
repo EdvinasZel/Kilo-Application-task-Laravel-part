@@ -11,12 +11,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="/api/item/create"><btn class="btn btn-outline-dark">Create item</btn></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><btn class="btn btn-outline-dark">-</btn></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#"><btn class="btn btn-outline-dark">-</btn></a>
-            </li>
         </ul>
     </div>
 </nav>

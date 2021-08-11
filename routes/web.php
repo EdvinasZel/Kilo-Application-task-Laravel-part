@@ -15,6 +15,3 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('index');
 
-//Route::resource('item',App\Http\Controllers\itemController::class);
-//Route::resource('category', App\Http\Controllers\categoryController::class);
-

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use Illuminate\Support\Facades\Validator;
@@ -14,7 +15,7 @@ class itemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
     }
@@ -24,7 +25,7 @@ class itemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $categorie = Category::all();
         return view('createItem', ['categorie'=>$categorie]);
@@ -97,7 +98,29 @@ class itemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return 5;
+        //validate the data
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|ends_with:_item',
+            'value'=>'required|min:10|max:100|numeric',
+            'quality'=>'required|min:-10|max:50|numeric',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->messages()
+            ], 200);
+        }
+
+        //Updating the Item
+        $item = Item::find($id);
+        $item->category = $request->input('category');
+        $item->name = $request->input('name');
+        $item->value = $request->input('value');
+        $item->quality = $request->input('quality');
+        $item->save();
+
+        return redirect('/');
     }
 
     /**

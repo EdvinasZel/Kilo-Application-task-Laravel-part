@@ -2,9 +2,28 @@
 @section('content')
 
     <hr>
+        <div class="row pl-4">
+        <form method="GET" action="{{route('index')}}" class="pb-2 pl-4">
+            <label for="category"><h5>Filter by Category:</h5></label>
+            <select name="category" id="category" class="form-control">
+                @foreach($categories as $name)
+                    <option value="{{$name->id}}">{{$name->name}}</option>
+                @endforeach
+            </select>
+            <button type="submit" class="btn-danger">Filter all items in Category</button>
+        </form>
+        </div>
+        <hr>
     <h5 class="ml-4">Avaliable Categories - </h5>
     @foreach($categories as $category)
-       <h6 class="ml-4 pl-4">NAME : {{$category->name}} | ID : {{$category->id}}</h6>
+       <div class="row">
+           <h6 class="ml-4 pl-4 col-md-2">NAME : {{$category->name}}</h6>
+           <h6 class="ml-4 pl-4 col-md-1">ID : {{$category->id}}</h6>
+           <form method="POST" action="{{route ('category.destroy', $category->id)}}" class="col-md-2 pb-2">
+               @method('DELETE')
+               <button type="submit" class="btn-danger">Delete all items in category</button>
+           </form>
+       </div>
     @endforeach
     <hr>
 
