@@ -2,6 +2,7 @@
 @section('content')
 
     <hr>
+    @if(count($categories)>0)
         <div class="row pl-4">
         <form method="GET" action="{{route('index')}}" class="pb-2 pl-4">
             <label for="category"><h5>Filter by Category:</h5></label>
@@ -13,8 +14,12 @@
             <button type="submit" class="btn-danger">Filter all items in Category</button>
         </form>
         </div>
+    @else
+        <h4 class="pl-4">No Categories created</h4>
+    @endif
         <hr>
     <h5 class="ml-4">Avaliable Categories - </h5>
+    @if(count($categories)>0)
     @foreach($categories as $category)
        <div class="row">
            <h6 class="ml-4 pl-4 col-md-2">NAME : {{$category->name}}</h6>
@@ -25,6 +30,9 @@
            </form>
        </div>
     @endforeach
+    @else
+        <h4 class="pl-4">No Categories created</h4>
+    @endif
     <hr>
 
     <div class="container">
@@ -33,6 +41,7 @@
          <h3>All items</h3>
     </div>
 
+        @if(count($items)>0)
         @foreach($items as $item)
 
             <div class="card mb-3">
@@ -47,6 +56,9 @@
             </div>
 
         @endforeach
+        @else
+            <h4>No Items created</h4>
+        @endif
 
     </div>
 @endsection
