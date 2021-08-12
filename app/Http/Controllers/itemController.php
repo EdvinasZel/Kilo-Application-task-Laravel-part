@@ -131,6 +131,6 @@ class itemController extends Controller
      */
     public function destroy($id)
     {
-        return 6;
+
     }
 }

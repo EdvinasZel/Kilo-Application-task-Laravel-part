@@ -1,0 +1,51 @@
+
+KILO.HEALTH application task part no. 2 by Edvinas Želnys
+
+For this part I've created new Laravel project, used XAMPP (php developement enviroment I'm familiar from University tasks and overall good tool for this type of projects), used MySQL database,
+created the mentioned models using migrations, a simple UI is also created for testing the project.
+
+I used API routes to meet all the requirements for this task, how I did it -
+
+-Create Category
+
+You can create a category by pressing the button "Create Category" on the navigation, this will lead you to a form to fill in the 'name' field, next - any data ( must be at least 5 characters )
+through API routes will invoke function "store()" in "categoryController" where the data is validated and if the validation passes new category will be added to the database.
+
+-Create Item
+
+In the navigation bar there's a option to create new Item by pressing "Create Item" button this will again ask you to fill in the form with all the information, next function "store()" is invoked
+in "itemController" where the data is validated ( name - must include _item suffix; value - at least 10, no greater than 100 ; quality - at least -10, no greater than 50 ) if the validation passes
+new Item will be added to the database. Also, notice with the Category->Item relationship only created Categories are avaliable to choose as the new Item parameter.
+
+-Update Item
+
+You can update every item by pressing "Update Item" button under desired object. This invokes "update()" function in "itemController" where data is again validated as the requirements state,
+and new data filled in the form is updated in selected item.
+
+-Return all items based on category
+
+In the main page "/" you can see a drop-down list with all the avaliable categories as a filter for your items, to see the desired category items simply choose the category and click the "Filter
+all items in category" this will only show items in that category ( if there are any ). This uses routes on the webpages side meaning the route for this is not in "api.php", this calls function
+"index()" in "Controller" that checks the web "$request" and filters the items accordingly.
+
+-Delete all items based on category
+
+In the main page "/" you can see all the avaliable categories ( if there are any ) next to each of the records there are a option to "Delete all items in category" this calls function "destroy()"
+in "categoryController" that passes the "$id" to know which categories Item the user wants deleted.
+
+I suggest using "Postman" application to test all the API routes, this makes it easy and fast to pin-point all the mistakes and errors in your API.
+
+HOW TO RUN :
+
+Feel free to use any other method to look into this project, these are the instructions on how to run it as I did, I would suggest using XAMPP just as I did to avoid any errors -
+-Clone my git repository to you local computer ( C:\xampp\htdocs\ ) folder.
+-Launch database and apache server inside the application
+-Open terminal navigate to projects location
+-run "composer update" ( or "composer install" if any erorrs occurs )
+-run "php artisan serve"
+-open "localhost/phpmyadmin" in you browser and create a new database and fill your database connection information, in Laravel projects ".env" file to make a connection
+-next open "localhost:8000" and this should open my projects solution.
+
+Thank you!
+
+
