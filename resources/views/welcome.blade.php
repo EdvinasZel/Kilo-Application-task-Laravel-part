@@ -57,7 +57,7 @@
 
         @endforeach
         @else
-            <h4>No Items created</h4>
+            <h4>No Items in this category</h4>
         @endif
 
     </div>

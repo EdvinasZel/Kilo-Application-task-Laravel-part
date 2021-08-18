@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Database\Eloquent\Model;
@@ -33,26 +34,15 @@ class categoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //validate the data
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|min:5',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->messages()
-            ], 200);
-        }
+        //Data validation in Requests/CategoryRequest
 
         //create Category
         $category = new Category;
         $category->name = $request->input('name');
         $category->save();
 
-        //return redirect()->back()->with(['message' => 'A message to display']);
         return redirect('/')->with('success', 'Category created!');
     }
 
@@ -96,9 +86,10 @@ class categoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        DB::table('item')->where('category', $id)->delete();
+        $id = $category->id;
+        Item::where('category', $id)->delete();
         return redirect('/');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ItemRequest;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -37,23 +38,10 @@ class itemController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
-        //validate the data
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|ends_with:_item',
-            'value'=>'required|min:10|max:100|numeric',
-            'quality'=>'required|min:-10|max:50|numeric',
-        ]);
+        //Data validation in Requests/ItemRequest
 
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->messages()
-            ], 200);
-        }
-
-        //creating new Item
         $item = new Item;
         $item->category = $request->input('category');
         $item->name = $request->input('name');
@@ -81,11 +69,18 @@ class itemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    /*
     public function edit($id)
     {
         $item = Item::find($id);
         $categorie = Category::all();
-        //return $item;
+        return view('updateItem', ['item'=>$item, 'categorie'=>$categorie]);
+    }
+    */
+
+    public function edit(Item $item)
+    {
+        $categorie = Category::all();
         return view('updateItem', ['item'=>$item, 'categorie'=>$categorie]);
     }
 
@@ -96,24 +91,11 @@ class itemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ItemRequest $request, Item $item)
     {
-        //validate the data
-        $validator = Validator::make($request->all(),[
-            'name' => 'required|ends_with:_item',
-            'value'=>'required|min:10|max:100|numeric',
-            'quality'=>'required|min:-10|max:50|numeric',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => $validator->messages()
-            ], 200);
-        }
 
         //Updating the Item
-        $item = Item::find($id);
+        //$item = Item::find($id);
         $item->category = $request->input('category');
         $item->name = $request->input('name');
         $item->value = $request->input('value');
