@@ -39,9 +39,7 @@ class categoryController extends Controller
         //Data validation in Requests/CategoryRequest
 
         //create Category
-        $category = new Category;
-        $category->name = $request->input('name');
-        $category->save();
+        Category::create($request->validated());
 
         return redirect('/')->with('success', 'Category created!');
     }

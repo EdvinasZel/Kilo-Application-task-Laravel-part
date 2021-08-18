@@ -12,6 +12,13 @@ class Item extends Model
     //Table name
     protected $table = 'item';
 
+    protected $fillable = [
+        'category',
+        'name',
+        'value',
+        'quality',
+    ];
+
     public function categoryRelationship()
     {
         return $this->belongsTo(Category::class,'category');

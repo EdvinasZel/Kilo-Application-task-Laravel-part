@@ -42,12 +42,7 @@ class itemController extends Controller
     {
         //Data validation in Requests/ItemRequest
 
-        $item = new Item;
-        $item->category = $request->input('category');
-        $item->name = $request->input('name');
-        $item->value = $request->input('value');
-        $item->quality = $request->input('quality');
-        $item->save();
+        Item::create($request->validated());
 
         return redirect('/');
     }
@@ -95,7 +90,6 @@ class itemController extends Controller
     {
 
         //Updating the Item
-        //$item = Item::find($id);
         $item->category = $request->input('category');
         $item->name = $request->input('name');
         $item->value = $request->input('value');
